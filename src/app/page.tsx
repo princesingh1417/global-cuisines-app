@@ -49,7 +49,7 @@ export default function Home() {
       <div className="fixed inset-0 -z-30 bg-background transition-colors duration-1000" />
       
       {/* Pre-load and mount all backgrounds so crossfading is instant */}
-      {['Indian', 'Italian', 'Continental', 'Mexican', 'Chinese'].map((cuisineName) => (
+      {['Indian', 'Italian', 'Continental', 'Mexican', 'Chinese', 'Japanese'].map((cuisineName) => (
         <div
           key={cuisineName}
           className={`fixed inset-0 -z-20 bg-cover bg-center transition-all duration-[800ms] ease-out will-change-transform ${

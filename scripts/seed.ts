@@ -230,6 +230,50 @@ const seedData = [
     description: 'A popular Chinese dish from Sichuan province consisting of tofu in a spicy, umami-rich sauce.',
     ingredients: ['Soft tofu', 'Ground pork or beef', 'Doubanjiang (Spicy broad bean paste)', 'Sichuan peppercorns', 'Chili oil', 'Scallions'],
     instructions: ['Blanch tofu cubes in salted water.', 'Stir fry ground meat until browned.', 'Add doubanjiang and toast until oil turns red.', 'Add broth and tofu, simmering gently.', 'Thicken with cornstarch and dust generously with ground Sichuan peppercorns.']
+  },
+
+  // Japanese
+  {
+    name: 'Sushi', slug: 'sushi', cuisine: 'Japanese',
+    description: 'Vinegared rice accompanied by various ingredients, such as seafood and vegetables.',
+    ingredients: ['Sushi rice', 'Nori (seaweed)', 'Fresh raw fish (Salmon, Tuna)', 'Rice vinegar', 'Soy sauce', 'Wasabi'],
+    instructions: ['Cook sushi rice and mix with vinegar.', 'Slice fish thinly.', 'Place a small ball of rice.', 'Dab a little wasabi.', 'Drape the fish slice over the rice.']
+  },
+  {
+    name: 'Ramen', slug: 'ramen', cuisine: 'Japanese',
+    description: 'A noodle soup dish consisting of Chinese-style wheat noodles served in a meat or fish-based broth.',
+    ingredients: ['Ramen noodles', 'Pork or chicken broth', 'Chashu (braised pork belly)', 'Scallions', 'Soft boiled egg', 'Soy sauce (Tare)'],
+    instructions: ['Prepare the broth and tare seasoning.', 'Boil the ramen noodles until firm.', 'Slice the chashu and prepare garnishes.', 'Combine tare, hot broth, and noodles in a bowl.', 'Top with chashu, egg, and scallions.']
+  },
+  {
+    name: 'Tempura', slug: 'tempura', cuisine: 'Japanese',
+    description: 'Seafood, vegetables, or other ingredients battered and deep-fried.',
+    ingredients: ['Shrimp or Vegetables', 'Tempura batter mix', 'Ice water', 'Frying oil', 'Tentsuyu dipping sauce'],
+    instructions: ['Clean and dry the shrimp/vegetables.', 'Mix batter powder with ice cold water lightly.', 'Dip ingredients and deep fry immediately.', 'Drain on a wire rack.', 'Serve hot with dipping sauce.']
+  },
+  {
+    name: 'Udon', slug: 'udon', cuisine: 'Japanese',
+    description: 'A thick noodle made from wheat flour, often served hot as a noodle soup in its simplest form.',
+    ingredients: ['Udon noodles', 'Dashi stock', 'Soy sauce', 'Mirin', 'Scallions', 'Kamaboko (fish cake)'],
+    instructions: ['Heat the dashi, soy sauce, and mirin to make the soup base.', 'Boil the thick udon noodles.', 'Drain noodles and place in a bowl.', 'Pour the hot soup over the noodles.', 'Garnish with scallions and kamaboko.']
+  },
+  {
+    name: 'Takoyaki', slug: 'takoyaki', cuisine: 'Japanese',
+    description: 'A ball-shaped Japanese snack made of a wheat flour-based batter and cooked in a special molded pan.',
+    ingredients: ['Takoyaki batter', 'Diced octopus (Tako)', 'Tenkasu (tempura scraps)', 'Green onion', 'Takoyaki sauce', 'Bonito flakes'],
+    instructions: ['Heat the takoyaki pan and grease it.', 'Pour batter into the holes.', 'Add octopus and scallions.', 'Use a pick to turn the balls as they cook.', 'Top with sauce, mayo, and bonito flakes.']
+  },
+  {
+    name: 'Okonomiyaki', slug: 'okonomiyaki', cuisine: 'Japanese',
+    description: 'A Japanese savory pancake containing a variety of ingredients in a wheat-flour-based batter.',
+    ingredients: ['Flour and dashi batter', 'Shredded cabbage', 'Pork belly slices', 'Eggs', 'Okonomiyaki sauce', 'Aonori (seaweed flakes)'],
+    instructions: ['Mix cabbage thoroughly into the batter.', 'Fry the batter mixture in a hot pan.', 'Layer pork belly on top and flip.', 'Cook until both sides are crispy and pork is cooked.', 'Drizzle with sauce and mayo.']
+  },
+  {
+    name: 'Matcha Mochi', slug: 'matcha-mochi', cuisine: 'Japanese',
+    description: 'A sweet Japanese confection made from glutinous rice flour, flavored with green tea powder.',
+    ingredients: ['Shiratamako (sweet rice flour)', 'Matcha powder', 'Sugar', 'Water', 'Red bean paste (Sweet filling)', 'Cornstarch'],
+    instructions: ['Mix rice flour, matcha, sugar, and water.', 'Microwave or steam until it forms a sticky dough.', 'Dust a surface with cornstarch.', 'Wrap small scoops of red bean paste in the mochi dough.', 'Form into smooth balls and let cool.']
   }
 ];
 
@@ -254,3 +298,4 @@ async function seed() {
 }
 
 seed();
+

@@ -19,6 +19,7 @@ interface CuisineProps {
 export default function Home() {
   const [cuisines, setCuisines] = useState<CuisineProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -27,9 +28,12 @@ export default function Home() {
         if (res.ok) {
           const data = await res.json();
           setCuisines(data);
+        } else {
+          setError(true);
         }
       } catch (err) {
         console.error('Failed to fetch cuisines', err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -60,6 +64,14 @@ export default function Home() {
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="h-[28rem] rounded-3xl bg-foreground/5 animate-pulse border border-foreground/10" />
           ))}
+        </div>
+      ) : error || cuisines.length === 0 ? (
+        <div className="max-w-2xl mx-auto text-center glass-panel p-10 rounded-3xl border border-red-500/20 bg-red-500/5">
+          <h2 className="text-2xl font-bold text-red-500 mb-4">Database Connection Error</h2>
+          <p className="text-foreground/80 mb-6 leading-relaxed">
+            We couldn't connect to the MongoDB database. 
+            This usually means your Vercel deployment is missing the <code>MONGODB_URI</code> environment variable, or your MongoDB cluster has not whitelisted Vercel's IP address (0.0.0.0/0).
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12">

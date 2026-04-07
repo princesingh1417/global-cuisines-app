@@ -27,11 +27,6 @@ export default function LandingPage() {
       <main className="max-w-6xl mx-auto px-6 sm:px-12 z-10 w-full pt-10">
         <div className="flex flex-col items-start gap-8 max-w-3xl">
           
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl">
-             <ChefHat className="w-5 h-5 text-accent" />
-             <span className="text-sm font-semibold tracking-wider text-white/90 uppercase">Exclusive Beta</span>
-          </div>
-          
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.05]">
             A Culinary <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-500">
@@ -64,8 +59,8 @@ export default function LandingPage() {
         </div>
       </main>
 
-      {/* Aesthetic Footer Fade */}
-      <div className="absolute bottom-10 left-12 opacity-50 font-medium text-sm text-white/50 uppercase tracking-widest hidden lg:block">
+      {/* Centered Aesthetic Footer */}
+      <div className="absolute bottom-8 left-0 right-0 w-full text-center opacity-50 font-medium text-xs sm:text-sm text-white/60 uppercase tracking-[0.2em] pointer-events-none drop-shadow-md">
         Global Cuisines &copy; {new Date().getFullYear()}
       </div>
     </div>

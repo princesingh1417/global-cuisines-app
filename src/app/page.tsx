@@ -22,8 +22,22 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hoveredCuisine, setHoveredCuisine] = useState<string | null>(null);
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
+    async function fetchAuth() {
+      try {
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data?.name) {
+            setUserName(json.data.name);
+          }
+        }
+      } catch(e) {}
+    }
+    fetchAuth();
+
     async function loadData() {
       try {
         const res = await fetch('/api/cuisines');
@@ -47,13 +61,30 @@ export default function Home() {
     <main className="min-h-screen py-16 px-4 sm:px-8 max-w-[100rem] mx-auto relative pt-24 overflow-x-hidden">
       
       {/* Top Navigation */}
-      <div className="absolute top-8 right-8 z-50">
-        <Link 
-          href="/login" 
-          className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white font-semibold tracking-wide transition-all duration-300 hover:scale-105 shadow-xl"
-        >
-          Sign In
-        </Link>
+      <div className="absolute top-8 right-8 z-50 flex items-center gap-4">
+        {userName ? (
+          <div className="flex items-center gap-2">
+            <span className="text-white font-semibold bg-white/5 px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-md shadow-lg">
+              Hi, {userName}
+            </span>
+            <button 
+              onClick={async () => {
+                 await fetch('/api/auth/logout', { method: 'GET' });
+                 setUserName('');
+              }}
+              className="px-4 py-2 hover:text-pink-400 text-foreground/70 font-medium transition-colors text-sm"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <Link 
+            href="/login" 
+            className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white font-semibold tracking-wide transition-all duration-300 hover:scale-105 shadow-xl"
+          >
+            Sign In
+          </Link>
+        )}
       </div>
 
       {/* Global Background Map for Hover Effects */}

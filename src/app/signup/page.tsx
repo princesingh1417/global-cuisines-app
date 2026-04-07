@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function SignupPage() {
   const router = useRouter();
   const [user, setUser] = useState({
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -29,7 +30,7 @@ export default function SignupPage() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email: user.email, password: user.password })
+        body: JSON.stringify({ name: user.name, email: user.email, password: user.password })
       });
       const data = await response.json();
       
@@ -38,8 +39,12 @@ export default function SignupPage() {
         return;
       }
 
-      setSuccess("Account created successfully! Please check your email to verify your account.");
-      setUser({ email: '', password: '', confirmPassword: '' });
+      setSuccess("Account created successfully! Redirecting to login...");
+      setUser({ name: '', email: '', password: '', confirmPassword: '' });
+      
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
       
     } catch (error: any) {
       setError("An unexpected error occurred. Please try again.");
@@ -78,6 +83,19 @@ export default function SignupPage() {
 
         <div className="mt-8 space-y-6 relative z-10">
           <div className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-2">Full Name</label>
+              <input
+                id="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent transition-all outline-none text-white placeholder-white/30 backdrop-blur-sm"
+                placeholder="Gordon Ramsay"
+                value={user.name}
+                onChange={(e) => setUser({...user, name: e.target.value})}
+              />
+            </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-2">Email address</label>
               <input
@@ -122,7 +140,7 @@ export default function SignupPage() {
           <div>
             <button
               onClick={onSignup}
-              disabled={loading || !user.email || !user.password || !user.confirmPassword || !!success}
+              disabled={loading || !user.name || !user.email || !user.password || !user.confirmPassword || !!success}
               className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-gradient-to-r from-accent to-pink-600 hover:from-pink-600 hover:to-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-accent/20"
             >
               {loading ? "Creating account..." : "Sign up"}

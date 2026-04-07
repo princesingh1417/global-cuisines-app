@@ -8,9 +8,9 @@ export async function POST(request: NextRequest) {
   try {
     await dbConnect();
     const reqBody = await request.json();
-    const { email, password } = reqBody;
+    const { name, email, password } = reqBody;
 
-    if (!email || !password) {
+    if (!name || !email || !password) {
       return NextResponse.json({ error: "[SIGNUP] Please provide all missing fields" }, { status: 400 });
     }
 
@@ -25,25 +25,16 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     const newUser = new User({
+      name,
       email,
       password: hashedPassword,
-      isVerified: false
+      isVerified: true // Auto-verify since we are removing the email step
     });
 
     const savedUser = await newUser.save();
 
-    // Attempt to send verification email
-    try {
-      await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
-    } catch (emailError: any) {
-      console.warn("SMTP Email Failed. Engaging fallback auto-verification so user can login immediately.", emailError);
-      // Auto-verify as a fallback so the website doesn't completely break!
-      savedUser.isVerified = true;
-      await savedUser.save();
-    }
-
     return NextResponse.json({
-      message: "Account created successfully! You can now log in.",
+      message: "Account created successfully!",
       success: true,
       savedUser,
     }, { status: 201 });

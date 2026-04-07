@@ -1,158 +1,73 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import { ChefHat, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import CuisineCard from '@/components/CuisineCard';
-import { ChefHat } from 'lucide-react';
 
-interface Dish {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-}
-
-interface CuisineProps {
-  cuisine: string;
-  dishes: Dish[];
-}
-
-export default function Home() {
-  const [cuisines, setCuisines] = useState<CuisineProps[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [hoveredCuisine, setHoveredCuisine] = useState<string | null>(null);
-  const [userName, setUserName] = useState('');
-
-  useEffect(() => {
-    async function fetchAuth() {
-      try {
-        const res = await fetch('/api/auth/me');
-        if (res.ok) {
-          const json = await res.json();
-          if (json.data?.name) {
-            setUserName(json.data.name);
-          }
-        }
-      } catch(e) {}
-    }
-    fetchAuth();
-
-    async function loadData() {
-      try {
-        const res = await fetch('/api/cuisines');
-        if (res.ok) {
-          const data = await res.json();
-          setCuisines(data);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        console.error('Failed to fetch cuisines', err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadData();
-  }, []);
-
+export default function LandingPage() {
   return (
-    <main className="min-h-screen py-16 px-4 sm:px-8 max-w-[100rem] mx-auto relative pt-24 overflow-x-hidden">
+    <div className="min-h-screen relative overflow-hidden flex flex-col justify-center text-white">
+      {/* Immersive Background Mapping */}
+      <div className="absolute inset-0 -z-30 bg-[#060606]" />
       
-      {/* Top Navigation */}
-      <div className="absolute top-8 right-8 z-50 flex items-center gap-4">
-        {userName ? (
-          <div className="flex items-center gap-2">
-            <span className="text-white font-semibold bg-white/5 px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-md shadow-lg">
-              Hi, {userName}
-            </span>
-            <button 
-              onClick={async () => {
-                 await fetch('/api/auth/logout', { method: 'GET' });
-                 setUserName('');
-              }}
-              className="px-4 py-2 hover:text-pink-400 text-foreground/70 font-medium transition-colors text-sm"
-            >
-              Logout
-            </button>
+      {/* Epic Global Background Fade */}
+      <div 
+        className="absolute inset-0 -z-20 opacity-40 mix-blend-overlay blur-[2px]"
+        style={{
+           backgroundImage: 'url(/images/Japanese.jpg)',
+           backgroundSize: 'cover',
+           backgroundPosition: 'center',
+        }}
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/80 to-transparent" />
+
+      {/* Decorative Orbs */}
+      <div className="absolute top-0 right-[-10vw] w-[50vw] h-[50vw] bg-accent/20 rounded-full blur-[140px] pointer-events-none mix-blend-screen" />
+      <div className="absolute bottom-[-10vw] left-[-10vw] w-[40vw] h-[40vw] bg-pink-500/10 rounded-full blur-[140px] pointer-events-none mix-blend-screen" />
+
+      {/* Main Content */}
+      <main className="max-w-6xl mx-auto px-6 sm:px-12 z-10 w-full pt-10">
+        <div className="flex flex-col items-start gap-8 max-w-3xl">
+          
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl">
+             <ChefHat className="w-5 h-5 text-accent" />
+             <span className="text-sm font-semibold tracking-wider text-white/90 uppercase">Exclusive Beta</span>
           </div>
-        ) : (
-          <Link 
-            href="/login" 
-            className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white font-semibold tracking-wide transition-all duration-300 hover:scale-105 shadow-xl"
-          >
-            Sign In
-          </Link>
-        )}
+          
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.05]">
+            A Culinary <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-500">
+              Journey
+            </span>
+            <br /> Through Time.
+          </h1>
+
+          <p className="text-lg md:text-2xl text-foreground/80 font-medium leading-relaxed max-w-xl">
+            Unlock a curated archives of the world's finest authentic recipes. 
+            From the bustling markets of Delhi to the quiet sushi bars of Kyoto, your global adventure starts here.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-5 pt-8 w-full sm:w-auto">
+            <Link 
+              href="/signup" 
+              className="group flex items-center justify-center gap-3 bg-gradient-to-r from-accent to-pink-600 hover:from-pink-600 hover:to-accent text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl shadow-accent/20 transition-all hover:scale-105"
+            >
+              Begin Journey
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link 
+              href="/login" 
+              className="flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 text-white px-8 py-4 rounded-2xl font-bold text-lg backdrop-blur-md transition-all hover:scale-[1.02]"
+            >
+              Sign In
+            </Link>
+          </div>
+          
+        </div>
+      </main>
+
+      {/* Aesthetic Footer Fade */}
+      <div className="absolute bottom-10 left-12 opacity-50 font-medium text-sm text-white/50 uppercase tracking-widest hidden lg:block">
+        Global Cuisines &copy; {new Date().getFullYear()}
       </div>
-
-      {/* Global Background Map for Hover Effects */}
-      <div className="fixed inset-0 -z-30 bg-background transition-colors duration-1000" />
-      
-      {/* Pre-load and mount all backgrounds so crossfading is instant */}
-      {['Indian', 'Italian', 'Continental', 'Mexican', 'Chinese', 'Japanese'].map((cuisineName) => (
-        <div
-          key={cuisineName}
-          className={`fixed inset-0 -z-20 bg-cover bg-center transition-all duration-[800ms] ease-out will-change-transform ${
-            hoveredCuisine === cuisineName 
-              ? 'opacity-30 dark:opacity-[0.15] scale-105 blur-[8px]' 
-              : 'opacity-0 scale-100 blur-[24px]'
-          }`}
-          style={{ backgroundImage: `url('/images/${cuisineName}.jpg')` }}
-        />
-      ))}
-
-      {/* Ambient background glows for premium feel */}
-      <div className="fixed top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-accent/20 rounded-full blur-[160px] -z-10 pointer-events-none mix-blend-screen" />
-      <div className="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-pink-500/10 rounded-full blur-[160px] -z-10 pointer-events-none mix-blend-screen" />
-
-      <header className="text-center mb-16 md:mb-24 space-y-6 relative z-10">
-        <div className="inline-flex items-center justify-center p-5 bg-gradient-to-br from-accent/40 to-accent/10 backdrop-blur-md rounded-3xl shadow-xl border border-accent/20 mb-4 transform hover:scale-110 transition-transform duration-500">
-          <ChefHat className="w-14 h-14 text-foreground drop-shadow-xl" />
-        </div>
-        <h1 className="text-6xl md:text-8xl font-black tracking-tight drop-shadow-2xl">
-          Savor the <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-500">World</span>
-        </h1>
-        <p className="text-2xl text-foreground/90 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-          Embark on a culinary journey through our curated collection of authentic recipes from five distinct global cuisines.
-        </p>
-      </header>
-
-      {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 xl:gap-14 mx-auto">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-[32rem] rounded-3xl bg-foreground/10 animate-pulse border border-foreground/20 backdrop-blur-sm" />
-          ))}
-        </div>
-      ) : error ? (
-        <div className="max-w-3xl mx-auto text-center glass-panel p-12 rounded-3xl border border-red-500/20 bg-red-500/5 shadow-2xl">
-          <h2 className="text-3xl font-extrabold text-red-500 mb-4">Database Connection Error</h2>
-          <p className="text-foreground/80 mb-6 text-lg leading-relaxed">
-            We couldn't connect to the MongoDB database. 
-            This usually means your Vercel deployment is missing the <code>MONGODB_URI</code> environment variable, or your MongoDB cluster has not whitelisted Vercel's IP address (0.0.0.0/0).
-          </p>
-        </div>
-      ) : cuisines.length === 0 ? (
-        <div className="max-w-3xl mx-auto text-center glass-panel p-12 rounded-3xl border border-pink-500/20 bg-pink-500/5 shadow-2xl">
-          <h2 className="text-4xl font-extrabold text-accent mb-4">Database is Empty!</h2>
-          <p className="text-foreground/80 mb-6 text-xl leading-relaxed">
-            The database successfully connected, but there are no recipes inside of it! 
-            You must run your seed script to populate the database with the global cuisines.
-          </p>
-        </div>
-      ) : (
-        /* Reduced column count to exactly 2 on large screens to force the cards to stretch much wider */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-12 lg:gap-16 mx-auto w-full max-w-7xl px-4 md:px-8">
-          {cuisines.map((item) => (
-            <CuisineCard 
-               key={item.cuisine} 
-               data={item} 
-               onHover={setHoveredCuisine} 
-            />
-          ))}
-        </div>
-      )}
-    </main>
+    </div>
   );
 }

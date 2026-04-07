@@ -31,7 +31,7 @@ export default function LoginPage() {
         return;
       }
 
-      router.push('/');
+      router.push('/explore');
     } catch (error: any) {
       setError("An unexpected error occurred. Please try again.");
     } finally {

@@ -11,13 +11,13 @@ export async function POST(request: NextRequest) {
     const { email, password } = reqBody;
 
     if (!email || !password) {
-      return NextResponse.json({ error: "Please provide all missing fields" }, { status: 400 });
+      return NextResponse.json({ error: "[SIGNUP] Please provide all missing fields" }, { status: 400 });
     }
 
     // Check if user already exists
     const user = await User.findOne({ email });
     if (user) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 });
+      return NextResponse.json({ error: "[SIGNUP] User already exists! Are you sure you aren't trying to Log In instead of Register?" }, { status: 400 });
     }
 
     // Hash password

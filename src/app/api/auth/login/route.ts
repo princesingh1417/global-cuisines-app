@@ -11,12 +11,12 @@ export async function POST(request: NextRequest) {
     const { email, password } = reqBody;
 
     if (!email || !password) {
-      return NextResponse.json({ error: "Please fill out all fields" }, { status: 400 });
+      return NextResponse.json({ error: "[LOGIN] Please fill out all fields" }, { status: 400 });
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-      return NextResponse.json({ error: "User does not exist" }, { status: 400 });
+      return NextResponse.json({ error: "[LOGIN] User does not exist in the database!" }, { status: 400 });
     }
 
     // Temporarily disabled strict verification check to allow fallback logins

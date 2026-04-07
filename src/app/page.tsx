@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import CuisineCard from '@/components/CuisineCard';
 import { ChefHat } from 'lucide-react';
 
@@ -45,6 +46,16 @@ export default function Home() {
   return (
     <main className="min-h-screen py-16 px-4 sm:px-8 max-w-[100rem] mx-auto relative pt-24 overflow-x-hidden">
       
+      {/* Top Navigation */}
+      <div className="absolute top-8 right-8 z-50">
+        <Link 
+          href="/login" 
+          className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white font-semibold tracking-wide transition-all duration-300 hover:scale-105 shadow-xl"
+        >
+          Sign In
+        </Link>
+      </div>
+
       {/* Global Background Map for Hover Effects */}
       <div className="fixed inset-0 -z-30 bg-background transition-colors duration-1000" />
       

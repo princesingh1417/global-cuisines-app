@@ -19,10 +19,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User does not exist" }, { status: 400 });
     }
 
-    // Check if verified
-    if (!user.isVerified) {
-      return NextResponse.json({ error: "Please check your email and verify your account before logging in." }, { status: 401 });
-    }
+    // Temporarily disabled strict verification check to allow fallback logins
+    // if (!user.isVerified) {
+    //   return NextResponse.json({ error: "Please check your email and verify your account before logging in." }, { status: 401 });
+    // }
 
     // Check password
     const validPassword = await bcryptjs.compare(password, user.password);

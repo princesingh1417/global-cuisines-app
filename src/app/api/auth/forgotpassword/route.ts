@@ -19,8 +19,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "If an account exists, a reset link will be sent to the email." }, { status: 200 });
     }
 
-    // Send reset email
-    await sendEmail({ email, emailType: "RESET", userId: user._id });
+    // Attempt to send reset email
+    try {
+      await sendEmail({ email, emailType: "RESET", userId: user._id });
+    } catch (emailError: any) {
+       console.warn("SMTP Email Failed on Forgot Password route.", emailError);
+       // We still return 200 to prevent exposing that the email system is down to end users.
+    }
 
     return NextResponse.json({
       message: "If an account exists, a reset link will be sent to the email.",

@@ -91,7 +91,7 @@ export default function Home() {
       <div className="fixed inset-0 -z-30 bg-background transition-colors duration-1000" />
       
       {/* Pre-load and mount all backgrounds so crossfading is instant */}
-      {['Indian', 'Italian', 'Continental', 'Mexican', 'Chinese', 'Japanese'].map((cuisineName) => (
+      {['Indian', 'Italian', 'Continental', 'Mexican', 'Chinese', 'Japanese', 'French', 'Thai', 'Greek', 'Spanish', 'Korean', 'Ethiopian', 'Moroccan', 'Lebanese', 'Turkish', 'Peruvian', 'Brazilian', 'American', 'Vietnamese'].map((cuisineName) => (
         <div
           key={cuisineName}
           className={`fixed inset-0 -z-20 bg-cover bg-center transition-all duration-[800ms] ease-out will-change-transform ${
@@ -115,7 +115,7 @@ export default function Home() {
           Savor the <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-500">World</span>
         </h1>
         <p className="text-2xl text-foreground/90 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-          Embark on a culinary journey through our curated collection of authentic recipes from five distinct global cuisines.
+          Embark on a culinary journey through our curated collection of authentic recipes from 19 iconic global cuisines.
         </p>
       </header>
 
@@ -142,8 +142,7 @@ export default function Home() {
           </p>
         </div>
       ) : (
-        /* Reduced column count to exactly 2 on large screens to force the cards to stretch much wider */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-12 lg:gap-16 mx-auto w-full max-w-7xl px-4 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mx-auto w-full max-w-7xl px-4 md:px-8">
           {cuisines.map((item) => (
             <CuisineCard 
                key={item.cuisine} 
